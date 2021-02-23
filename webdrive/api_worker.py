@@ -77,7 +77,8 @@ def api_get_data() -> str:
         d = decode_story_string(i['content'])
         l = i['likesCount']
         u = i['updatedAt']
-        a = [d, l, u]
+        t = time_editor(u)
+        a = [d, l, t]
         array_data.append(a)
     
     result = export_data(array_data)
