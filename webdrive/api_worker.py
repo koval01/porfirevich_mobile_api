@@ -43,7 +43,7 @@ def export_data(array):
     """
     data_array = []
     for i in array:
-        template_ = template % ('text', 'time', 'likes')
+        template_ = template % (str(i[0]), str(i[2]), str(i[1]))
         data_array.append(template_)
 
     return ''.join(data_array)
