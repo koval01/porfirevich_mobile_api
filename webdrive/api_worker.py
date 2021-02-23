@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 import json
 
@@ -47,6 +48,24 @@ def export_data(array):
         data_array.append(template_)
 
     return ''.join(data_array)
+
+
+def time_editor(time):
+    time = str(time)[:-5]
+    time_field = datetime.fromisoformat(time)
+    d = time_field.strftime("%d %B %Y г. %H:%M")
+    field = month_convert(d)
+    return field
+
+
+def month_convert(string):
+    en_mon = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+              'October', 'November', 'December']
+    ru_mon = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
+              'октября', 'ноября', 'декабря']
+    for i in en_mon:
+        string = string.replace(i, ru_mon[en_mon.index(i)])
+    return string
 
 
 def api_get_data() -> str:
