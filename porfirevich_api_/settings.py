@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ocj19*(-a68$j&r0sp+c9o4ar^%5#($%&od1lb#6ohk%+=ngue'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['sleepy-stream-85885.herokuapp.com']
 
