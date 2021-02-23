@@ -35,7 +35,7 @@ def export_data(array):
                     <div style="width: calc(1.0 - 90px); float: left; ">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><svg style="filter: invert(0.8);" class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg></label>
                         <label class="username">Пользовательская запись</label><br>
-                        <label class="city">%s<br><br><u>%s</u> ❤️<br></label>
+                        <label class="city">%s<br><br><b>%s</b> ❤️<br></label>
                     </div>
                 </div>
             </div>
