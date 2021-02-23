@@ -62,8 +62,7 @@ def month_convert(string):
 
 def time_editor(time):
     time = str(time)[:-5]
-    time_field = datetime.datetime.fromisoformat(time)
-    d = time_field.strftime("%d %B %Y г. %H:%M")
+    d = datetime.datetime.strftime(time, "%d %B %Y г. %H:%M")
     field = month_convert(d)
     return field
 
