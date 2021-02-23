@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 import requests
 import json
 
@@ -62,7 +62,7 @@ def month_convert(string):
 
 def time_editor(time):
     time = str(time)[:-5]
-    time_field = datetime.fromisoformat(time)
+    time_field = date.fromisoformat(time)
     d = time_field.strftime("%d %B %Y г. %H:%M")
     field = month_convert(d)
     return field
