@@ -25,7 +25,7 @@ SECRET_KEY = 'ocj19*(-a68$j&r0sp+c9o4ar^%5#($%&od1lb#6ohk%+=ngue'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['nameless-beyond-74371.herokuapp.com']
+ALLOWED_HOSTS = ['sleepy-stream-85885.herokuapp.com']
 
 
 # Application definition
@@ -119,4 +119,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/static/"
+STATIC_ROOT = "./static/"
