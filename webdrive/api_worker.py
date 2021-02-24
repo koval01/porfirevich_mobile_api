@@ -21,12 +21,35 @@ def cleanhtml(raw_html) -> str:
   return cleantext
 
 
+def fix_string(string) -> str:
+    """
+    Удаление лишних пробелов в тексте
+    :param string: Input term
+    :return: Filtered string
+    """
+    in_word = string
+    in_between_words = ['-', '–']
+    in_sentences = ['«', '(', '[', '{', '"', '„', '\'']
+    for item in in_between_words:
+        regex = r'\w[%s]\s\w' % item
+        in_word = re.findall(regex, string)
+
+        for x in in_word:
+            a = x[:1]; b = x[3:4]
+            string = string.replace(x, a + '-' + b)
+
+    for item in in_sentences:
+        string = string.replace(f' {item} ', f' {item}')
+    return string
+
+
 def decode_story_string(array) -> str:
     """Декодер текста записи"""
     struct_array = []
     array = json.loads(array)
     for i in array:
         text = cleanhtml(str(i[0]))
+        text = fix_string(text)
         text = text.replace('\n', '</br>')
         if i[1]:
             struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
