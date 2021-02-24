@@ -103,14 +103,14 @@ def export_data(array) -> str:
                     <div style="width: calc(1.0 - 90px); float: left; ">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><svg style="filter: invert(0.8);" class="svg-inline--fa fa-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg></label>
                         <label class="username">Пользовательская запись</label><br>
-                        <label class="city">%s<br><br><b>%s</b> ❤️<br><i>%s</i> 🕑<br></label>
+                        <label class="city">%s<br><br><b>%s</b> ❤️<br><i>%s</i> 🕑<br><i>%s</i> 🤖<br></label>
                     </div>
                 </div>
             </div>
     """
     data_array = []
     for i in array:
-        template_ = template % (str(i[0]), str(i[1]), str(i[2]))
+        template_ = template % (i[0], i[1], i[2], i[3])
         data_array.append(template_)
         data_array.append(copyright())
 
@@ -125,7 +125,7 @@ def get_random_string(length = 0) -> str:
     return result_str
 
 
-def time_elapse(start_time):
+def time_elapse(start_time) -> str:
     """Обчислюємо витрачений час"""
     time_elapsed = str(time.time() - start_time)[:5]
     return '<!-- %s %s -->' % (get_random_string(), time_elapsed)
@@ -134,6 +134,12 @@ def copyright() -> str:
     """Простая функция для удобной вставки сообщения о авторском праве"""
     text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
     return '<!-- %s %s -->' % (get_random_string(), text)
+
+
+def gen_link_porfirevich(post_id) -> str:
+    """Простая генерация ссылки на запись"""
+    link = '<a href="https://porfirevich.ru/%s">К Порфирьевичу</a>' % post_id
+    return link
 
 
 def time_prepare(time_string) -> str:
@@ -169,8 +175,9 @@ def api_get_data() -> str:
         if error_check_code not in d:
             l = i['likesCount']
             u = i['updatedAt']
+            link = gen_link_porfirevich(i['id'])
             u = time_prepare(u)
-            a = [d, l, u]
+            a = [d, l, u, link]
             array_data.append(a)
     
     result = export_data(array_data)
