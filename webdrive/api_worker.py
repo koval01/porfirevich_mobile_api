@@ -20,8 +20,11 @@ def decode_story_string(array):
     struct_array = []
     array = json.loads(array)
     for i in array:
-        if i[1]: struct_array.append(f'<b id="{get_random_string()}">{i[0]}</b>')
-        else: struct_array.append(f'<i id="{get_random_string()}">{i[0]}</i>')
+        text = str(i[0]).replace('\n', '</br>')
+        if i[1]:
+            struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
+        else: 
+            struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
     return ''.join(struct_array)
 
 
