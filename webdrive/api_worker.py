@@ -138,7 +138,7 @@ def copyright() -> str:
 
 def gen_link_porfirevich(post_id) -> str:
     """Простая генерация ссылки на запись"""
-    link = '<a href="https://porfirevich.ru/%s">К Порфирьевичу</a>' % post_id
+    link = '<a id="%s" href="https://porfirevich.ru/%s">К Порфирьевичу</a>' % (get_random_string(), post_id)
     return link
 
 
