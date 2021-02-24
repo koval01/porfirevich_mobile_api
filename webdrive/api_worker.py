@@ -1,6 +1,9 @@
 import requests, json, random, string, re, time
 
 
+error_check_code = 'the_message_contains_elements_that_are_too_long'
+
+
 def get_data() -> str:
     """Функция получения данных"""
     headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36"}
@@ -85,6 +88,8 @@ def decode_story_string(array) -> str:
                 struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
             else: 
                 struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
+        else:
+            struct_array.append(f'<b id="{get_random_string()}">{error_check_code}</b>')
     return ''.join(struct_array)
 
 
@@ -138,10 +143,11 @@ def api_get_data() -> str:
     array_data = []
     for i in data['data']:
         d = decode_story_string(i['content'])
-        l = i['likesCount']
-        # u = i['updatedAt']
-        a = [d, l]
-        array_data.append(a)
+        if error_check_code not in d:
+            l = i['likesCount']
+            # u = i['updatedAt']
+            a = [d, l]
+            array_data.append(a)
     
     result = export_data(array_data)
     result += time_elapse(s)
