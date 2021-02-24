@@ -1,5 +1,4 @@
-import requests
-import json
+import requests, json, random, string
 
 
 def get_data():
@@ -21,15 +20,15 @@ def decode_story_string(array):
     struct_array = []
     array = json.loads(array)
     for i in array:
-        if i[1]: struct_array.append(f'<b>{i[0]}</b>')
-        else: struct_array.append(f'<i>{i[0]}</i>')
+        if i[1]: struct_array.append(f'<b id="{get_random_string()}">{i[0]}</b>')
+        else: struct_array.append(f'<i id="{get_random_string()}">{i[0]}</i>')
     return ''.join(struct_array)
 
 
 def export_data(array):
     """Последний этап"""
     template = """
-            <div class="col-12 col-lg-12 padding-block-center-box">
+            <div id="_0" class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <img style="image-rendering: pixelated; width: 60px; filter: invert(0.8); height: 60px" class="lazyloaded" data-src="file:///android_asset/static/my_web/images/logo-dark.svg" src="file:///android_asset/static/my_web/images/logo-dark.svg">
                     <div style="width: calc(1.0 - 90px); float: left; ">
@@ -46,6 +45,12 @@ def export_data(array):
         data_array.append(template_)
 
     return ''.join(data_array)
+
+
+def get_random_string(length = 16):
+    letters = string.ascii_letters + string.digits
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
 
 
 def api_get_data() -> str:
