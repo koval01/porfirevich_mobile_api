@@ -43,6 +43,19 @@ def fix_string(string) -> str:
     return string
 
 
+def cut_long_words(string):
+    s = string.split()
+    array = []
+    for i in s:
+        if len(i) > 19:
+            x = str(i)[:19]
+        else: 
+            x = i
+        array.append(x)
+    
+    return ' '.join(array)
+
+
 def decode_story_string(array) -> str:
     """Декодер текста записи"""
     struct_array = []
@@ -50,6 +63,7 @@ def decode_story_string(array) -> str:
     for i in array:
         text = cleanhtml(str(i[0]))
         text = fix_string(text)
+        text = cut_long_words(text)
         text = text.replace('\n', '</br>')
         if i[1]:
             struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
