@@ -1,7 +1,7 @@
-import requests, json, random, string
+import requests, json, random, string, re, time
 
 
-def get_data():
+def get_data() -> str:
     """Функция получения данных"""
     headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36"}
     API_URL = 'https://porfirevich.ru/api/story/?orderBy=RAND()&limit=20'
@@ -9,18 +9,25 @@ def get_data():
     return data.text
 
 
-def prepare_data(data):
+def prepare_data(data) -> list:
     """Подготовка данных"""
     for i in data['data']:
         return i
 
 
-def decode_story_string(array):
+def cleanhtml(raw_html) -> str:
+  cleanr = re.compile('<.*?>')
+  cleantext = re.sub(cleanr, '', raw_html)
+  return cleantext
+
+
+def decode_story_string(array) -> str:
     """Декодер текста записи"""
     struct_array = []
     array = json.loads(array)
     for i in array:
-        text = str(i[0]).replace('\n', '</br>')
+        text = cleanhtml(str(i[0]))
+        text = text.replace('\n', '</br>')
         if i[1]:
             struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
         else: 
@@ -28,8 +35,8 @@ def decode_story_string(array):
     return ''.join(struct_array)
 
 
-def export_data(array):
-    """Последний этап"""
+def export_data(array) -> str:
+    """Последний этап подготовки данных"""
     template = """
             <div id="_0" class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
@@ -51,18 +58,27 @@ def export_data(array):
     return ''.join(data_array)
 
 
-def get_random_string(length = 16):
+def get_random_string(length = 16) -> str:
+    """Генерация рандомной строки из цифр и букв"""
     letters = string.ascii_letters + string.digits
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
 
-def copyright():
+def time_elapse(start_time):
+    """Обчислюємо витрачений час"""
+    time_elapsed = str(time.time() - start_time)[:5]
+    return '<!-- %s %s -->' % (get_random_string(), time_elapsed)
+
+def copyright() -> str:
+    """Простая функция для удобной вставки сообщения о авторском праве"""
     text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
     return '<!-- %s %s -->' % (get_random_string(), text)
 
 
 def api_get_data() -> str:
+    """Основная функция которая возвращает готовые данные"""
+    s = time.time()
     data = get_data()
     data = json.loads(data)
 
@@ -75,5 +91,6 @@ def api_get_data() -> str:
         array_data.append(a)
     
     result = export_data(array_data)
+    result += time_elapse(s)
 
     return result
