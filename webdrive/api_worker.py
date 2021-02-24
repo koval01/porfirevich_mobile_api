@@ -43,21 +43,33 @@ def fix_string(string) -> str:
     return string
 
 
-def cut_long_words(string):
+# def cut_long_words(string) -> str:
+#     """Обрізання занад-то довгих елементів"""
+#     s = string.split()
+#     array = []
+#     for i in s:
+#         if len(i) > 19:
+#             y = ' '
+#             if str(i)[:1] == y:
+#                 x = y + str(i)[:19]
+#             else:
+#                 x = str(i)[:19]
+#         else: 
+#             x = i
+#         array.append(x)
+    
+#     return ' '.join(array)
+
+
+def check_long_words_in_string(string) -> bool:
+    """Перевірка наявності занад-то довгих слів в строці"""
+    status = False
     s = string.split()
-    array = []
     for i in s:
         if len(i) > 19:
-            y = ' '
-            if str(i)[:1] == y:
-                x = y + str(i)[:19]
-            else:
-                x = str(i)[:19]
-        else: 
-            x = i
-        array.append(x)
-    
-    return ' '.join(array)
+            status = True
+
+    return status
 
 
 def decode_story_string(array) -> str:
@@ -67,12 +79,13 @@ def decode_story_string(array) -> str:
     for i in array:
         text = cleanhtml(str(i[0]))
         text = fix_string(text)
-        text = cut_long_words(text)
-        text = text.replace('\n', '</br>')
-        if i[1]:
-            struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
-        else: 
-            struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
+        check_words_len = check_long_words_in_string(text)
+        if check_words_len:
+            text = text.replace('\n', '</br>')
+            if i[1]:
+                struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
+            else: 
+                struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
     return ''.join(struct_array)
 
 
