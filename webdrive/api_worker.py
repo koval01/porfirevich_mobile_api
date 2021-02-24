@@ -48,7 +48,11 @@ def cut_long_words(string):
     array = []
     for i in s:
         if len(i) > 19:
-            x = str(i)[:19]
+            y = ' '
+            if str(i)[:1] == y:
+                x = y + str(i)[:19]
+            else:
+                x = str(i)[:19]
         else: 
             x = i
         array.append(x)
@@ -110,7 +114,7 @@ def time_elapse(start_time):
 def copyright() -> str:
     """Простая функция для удобной вставки сообщения о авторском праве"""
     text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
-    return '<!-- %s %s -->' % (get_random_string(), text)
+    return '<!-- %s %s -->' % (get_random_string(random.randint(12, 20)), text)
 
 
 def api_get_data() -> str:
