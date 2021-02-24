@@ -66,7 +66,7 @@ def check_long_words_in_string(string) -> bool:
     status = True
     s = string.split()
     for i in s:
-        if len(i) > 19:
+        if len(i) > 22:
             status = False
 
     return status
