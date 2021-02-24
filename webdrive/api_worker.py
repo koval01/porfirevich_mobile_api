@@ -63,11 +63,11 @@ def fix_string(string) -> str:
 
 def check_long_words_in_string(string) -> bool:
     """Перевірка наявності занад-то довгих слів в строці"""
-    status = False
+    status = True
     s = string.split()
     for i in s:
         if len(i) > 19:
-            status = True
+            status = False
 
     return status
 
@@ -79,8 +79,7 @@ def decode_story_string(array) -> str:
     for i in array:
         text = cleanhtml(str(i[0]))
         text = fix_string(text)
-        check_words_len = check_long_words_in_string(text)
-        if check_words_len:
+        if check_long_words_in_string(text):
             text = text.replace('\n', '</br>')
             if i[1]:
                 struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
