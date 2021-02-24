@@ -46,6 +46,7 @@ def export_data(array):
     for i in array:
         template_ = template % (str(i[0]), str(i[1]))
         data_array.append(template_)
+        data_array.append(copyright())
 
     return ''.join(data_array)
 
@@ -54,6 +55,11 @@ def get_random_string(length = 16):
     letters = string.ascii_letters + string.digits
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
+
+
+def copyright():
+    text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
+    return '<!-- %s %s -->' % (get_random_string(), text)
 
 
 def api_get_data() -> str:
