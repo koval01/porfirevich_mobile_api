@@ -145,7 +145,7 @@ def month_convert(string) -> str:
 
 
 def api_get_data() -> str:
-    """Основная функция которая возвращает готовые данные"""
+    """Основная функция которая возвращает готовые данные от Порфирьевича"""
     s = time.time()
     data = get_data()
     data = json.loads(data)
