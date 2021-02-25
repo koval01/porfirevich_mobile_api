@@ -1,1 +1,1 @@
-web: gunicorn porfirevich_api_.wsgi
+web: gunicorn --workers=3 porfirevich_api_.wsgi
