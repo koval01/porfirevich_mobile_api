@@ -149,7 +149,7 @@ def api_get_data() -> str:
     """Основная функция которая возвращает готовые данные"""
     s = time.time()
     data = get_data()
-    data = json.loads(data)
+    data = json.loads(str(data))
 
     array_data = []
     for i in data['data']:
