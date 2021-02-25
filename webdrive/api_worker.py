@@ -6,22 +6,29 @@ error_check_code = 'the_message_contains_elements_that_are_too_long'
 
 
 def get_data() -> str:
-    """Функция получения данных"""
+    """
+    Функция получения данных
+    """
     headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36"}
     API_URL = 'https://porfirevich.ru/api/story/?orderBy=RAND()&limit=20'
     return requests.get(API_URL, headers=headers).text
 
 
 def prepare_data(data) -> list:
-    """Подготовка данных"""
+    """
+    Подготовка данных
+    """
     for i in data['data']:
         return i
 
 
 def cleanhtml(raw_html) -> str:
-  cleanr = re.compile('<.*?>')
-  cleantext = re.sub(cleanr, '', raw_html)
-  return cleantext
+    """
+    Очищаем строку от HTML тегов
+    """
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext
 
 
 def fix_string(string) -> str:
@@ -46,8 +53,17 @@ def fix_string(string) -> str:
     return string
 
 
+def easy_minimize(s) -> str:
+    """
+    Удобная минимизация выходных данных
+    """
+    return s.replace('\n', '').replace('    ', '')
+
+
 def check_long_words_in_string(string) -> bool:
-    """Перевірка наявності занад-то довгих слів в строці"""
+    """
+    Проверка наличия слишком довгих слов/елементов в строке
+    """
     status = True
     s = string.split()
     for i in s:
@@ -58,7 +74,9 @@ def check_long_words_in_string(string) -> bool:
 
 
 def decode_story_string(array) -> str:
-    """Декодер текста записи"""
+    """
+    Декодер текста записи
+    """
     struct_array = []
     array = json.loads(array)
     for i in array:
@@ -76,7 +94,9 @@ def decode_story_string(array) -> str:
 
 
 def export_data(array) -> str:
-    """Последний этап подготовки данных"""
+    """
+    Последний этап подготовки данных
+    """
     template = """
             <div id="_0" class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
@@ -99,7 +119,9 @@ def export_data(array) -> str:
 
 
 def get_random_string(length = 0) -> str:
-    """Генерация рандомной строки из цифр и букв"""
+    """
+    Генерация рандомной строки из цифр и букв
+    """
     if length == 0: length = random.randint(8, 32)
     letters = string.ascii_letters + string.digits
     result_str = ''.join(random.choice(letters) for i in range(length))
@@ -107,24 +129,32 @@ def get_random_string(length = 0) -> str:
 
 
 def time_elapse(start_time) -> str:
-    """Обчислюємо витрачений час"""
+    """
+    Считаем потраченое время
+    """
     time_elapsed = str(time.time() - start_time)[:5]
     return '<!-- %s %s -->' % (get_random_string(), time_elapsed)
 
 def copyright() -> str:
-    """Простая функция для удобной вставки сообщения о авторском праве"""
+    """
+    Простая функция для удобной вставки сообщения о авторском праве
+    """
     text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
     return '<!-- %s %s -->' % (get_random_string(), text)
 
 
 def gen_link_porfirevich(post_id) -> str:
-    """Простая генерация ссылки на запись"""
+    """
+    Простая генерация ссылки на запись
+    """
     link = '<a id="%s" href="https://porfirevich.ru/%s">Порфирьевич</a>' % (get_random_string(), post_id)
     return link
 
 
 def time_prepare(time_string) -> str:
-    """Переводим время в строку"""
+    """
+    Переводим время в строку
+    """
     d = datetime.fromisoformat(str(time_string)[:-5])
     d = d.strftime("%d %B %Y г. %H:%M")
     d = month_convert(d)
@@ -134,7 +164,9 @@ def time_prepare(time_string) -> str:
 
 
 def month_convert(string) -> str:
-    """Переводим месяц на русский"""
+    """
+    Переводим месяц на русский
+    """
     en_mon = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
               'October', 'November', 'December']
     ru_mon = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
@@ -145,7 +177,9 @@ def month_convert(string) -> str:
 
 
 def api_get_data() -> str:
-    """Основная функция которая возвращает готовые данные от Порфирьевича"""
+    """
+    Основная функция которая возвращает готовые данные от Порфирьевича
+    """
     s = time.time()
     data = get_data()
     data = json.loads(data)
@@ -164,4 +198,4 @@ def api_get_data() -> str:
     result = export_data(array_data)
     result += time_elapse(s)
 
-    return result
+    return easy_minimize(result)
