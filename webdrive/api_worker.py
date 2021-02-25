@@ -10,7 +10,7 @@ def get_data() -> str:
     """Функция получения данных"""
     headers = [("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36")]
     API_URL = 'https://porfirevich.ru/api/story/?orderBy=RAND()&limit=20'
-    return requests.get(API_URL, http_headers=headers)
+    return requests.get(API_URL, http_headers=headers)['body']
 
 
 def prepare_data(data) -> list:
@@ -61,9 +61,9 @@ def check_long_words_in_string(string) -> bool:
 def decode_story_string(array) -> str:
     """Декодер текста записи"""
     struct_array = []
-    array = json.loads(str(array))
+    array = json.loads(array)
     for i in array:
-        text = cleanhtml(str(i[0]))
+        text = cleanhtml(i[0])
         text = fix_string(text)
         if check_long_words_in_string(text):
             text = text.replace('\n', '</br>')
@@ -149,7 +149,7 @@ def api_get_data() -> str:
     """Основная функция которая возвращает готовые данные"""
     s = time.time()
     data = get_data()
-    data = json.loads(str(data))
+    data = json.loads(data)
 
     array_data = []
     for i in data['data']:
