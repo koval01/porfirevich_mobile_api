@@ -60,6 +60,21 @@ def easy_minimize(s) -> str:
     return s.replace('\n', '').replace('    ', '')
 
 
+def copyright_compiler(string) -> str:
+    """
+    Делаем так чтобы убрать копирайт было максимально сложно
+    """
+    sybmls = ['_', '-', '=', ')', '(', '{', '}', '[', ']', '!', '@', '#', '»', '$', '%', '^', '&', '*', '+', '\\', '~', '"',
+              '\'', '<', '>', '?', '.', ',', '«', '`', '/', ':', ';', '„', '—']
+    array = []
+    for i in string:
+        array.append(i)
+        if random.randint(0, 100) > 90:
+            array.append(random.choice(sybmls))
+
+    return ''.join(array)
+
+
 def check_long_words_in_string(string) -> bool:
     """
     Проверка наличия слишком довгих слов/елементов в строке
@@ -140,7 +155,7 @@ def copyright() -> str:
     Простая функция для удобной вставки сообщения о авторском праве
     """
     text = 'The code you see now belongs to the porfirevich.ru project. You may not copy this code without permission.'
-    return '<!-- %s %s -->' % (get_random_string(), text)
+    return '<!-- %s %s -->' % (get_random_string(), copyright_compiler(text))
 
 
 def gen_link_porfirevich(post_id) -> str:
