@@ -47,24 +47,6 @@ def fix_string(string) -> str:
     return string
 
 
-# def cut_long_words(string) -> str:
-#     """Обрізання занад-то довгих елементів"""
-#     s = string.split()
-#     array = []
-#     for i in s:
-#         if len(i) > 19:
-#             y = ' '
-#             if str(i)[:1] == y:
-#                 x = y + str(i)[:19]
-#             else:
-#                 x = str(i)[:19]
-#         else: 
-#             x = i
-#         array.append(x)
-    
-#     return ' '.join(array)
-
-
 def check_long_words_in_string(string) -> bool:
     """Перевірка наявності занад-то довгих слів в строці"""
     status = True
@@ -138,7 +120,7 @@ def copyright() -> str:
 
 def gen_link_porfirevich(post_id) -> str:
     """Простая генерация ссылки на запись"""
-    link = '<a id="%s" href="https://porfirevich.ru/%s">К Порфирьевичу</a>' % (get_random_string(), post_id)
+    link = '<a id="%s" href="https://porfirevich.ru/%s">Порфирьевич</a>' % (get_random_string(), post_id)
     return link
 
 
