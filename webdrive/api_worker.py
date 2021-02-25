@@ -10,7 +10,7 @@ def get_data() -> str:
     """Функция получения данных"""
     headers = [("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36")]
     API_URL = 'https://porfirevich.ru/api/story/?orderBy=RAND()&limit=20'
-    return requests.get(API_URL, http_headers=headers)
+    return requests.get(API_URL, http_headers=headers).body
 
 
 def prepare_data(data) -> list:
