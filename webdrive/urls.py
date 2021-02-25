@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('load_data/', views.load_data),
+    path('health/', views.health),
 ]
