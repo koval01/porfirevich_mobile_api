@@ -1,4 +1,5 @@
-import requests, json, random, string, re, time
+import json, random, string, re, time
+import faster_than_requests as requests
 from datetime import datetime
 
 
@@ -7,9 +8,9 @@ error_check_code = 'the_message_contains_elements_that_are_too_long'
 
 def get_data() -> str:
     """Функция получения данных"""
-    headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36"}
+    headers = [("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4421.5 Safari/537.36")]
     API_URL = 'https://porfirevich.ru/api/story/?orderBy=RAND()&limit=20'
-    data = requests.get(API_URL, headers=headers)
+    data = requests.get(API_URL, http_headers=headers)
     return data.text
 
 

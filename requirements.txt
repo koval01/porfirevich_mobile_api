@@ -4,5 +4,5 @@ gunicorn
 pip
 setuptools
 wheel
-requests
+git+https://github.com/juancarlospaco/faster-than-requests
 django-cors-headers
