@@ -61,7 +61,7 @@ def check_long_words_in_string(string) -> bool:
 def decode_story_string(array) -> str:
     """Декодер текста записи"""
     struct_array = []
-    array = json.loads(array)
+    array = json.loads(str(array))
     for i in array:
         text = cleanhtml(str(i[0]))
         text = fix_string(text)
